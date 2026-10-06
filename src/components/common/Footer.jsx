@@ -74,7 +74,7 @@ const Footer = () => {
             <h4 className="footer-heading">Center &amp; Contact</h4>
             <div className="footer-contact-item">
               <MapPin size={16} className="footer-contact-icon" />
-              <span>No. 42, Salai Road, Near Thillai Nagar 1st Cross, Tiruchirappalli - 620018, Tamil Nadu</span>
+              <span>Opposite SBI, Near to Aruna Theatre Stop, Ramalinga Nagar, Puthur Main Road, Woriyur, Trichy-620003, Tamil Nadu</span>
             </div>
             <div className="footer-contact-item">
               <Phone size={16} className="footer-contact-icon" />

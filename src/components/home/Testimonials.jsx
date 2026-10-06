@@ -1,134 +1,222 @@
-import React from 'react';
-import { Star, Quote, UserCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const TESTIMONIALS = [
   {
-    name: 'R. Soundararajan',
-    location: 'Thillai Nagar, Trichy',
-    role: 'Retired Bank Manager',
-    feedback: 'I booked the Senior Citizen Gold wellness package for my wife and myself. The phlebotomist came promptly at 6:45 AM, drew samples painlessly, and we had our full reports on WhatsApp by 2 PM. Very courteous staff and clean lab setup.',
-    rating: 5,
-    test: 'Senior Citizen Wellness Profile'
+    id: 1,
+    name: 'Priya S.',
+    location: 'Trichy',
+    avatar: '/images/avatar-priya.jpg',
+    feedback: 'Very good service and professional staff. Reports were accurate and delivered on time.',
+    rating: 5
   },
   {
-    name: 'Dr. Kavitha Selvan',
-    location: 'Cantonment, Trichy',
-    role: 'Consultant Physician',
-    feedback: 'Doctor Diagnostics Center is my primary referral laboratory in Trichy for hematology and HbA1c testing. Their calibration curves and inter-day precision are commendable. Reports correlate accurately with clinical presentations.',
-    rating: 5,
-    test: 'Referred Diagnostic Evaluation'
+    id: 2,
+    name: 'Ramesh K.',
+    location: 'Trichy',
+    avatar: '/images/avatar-ramesh.jpg',
+    feedback: 'Home collection was very convenient and the staff were polite and professional.',
+    rating: 5
   },
   {
-    name: 'M. Anandhakrishnan',
-    location: 'KK Nagar, Trichy',
-    role: 'IT Project Lead',
-    feedback: 'Took their Executive Master Health Checkup before an insurance renewal. Fast, streamlined, no long queues at Salai Road. Everything from blood sample to ECG was completed in under 45 minutes.',
-    rating: 5,
-    test: 'Master Health Checkup'
+    id: 3,
+    name: 'Lakshmi M.',
+    location: 'Trichy',
+    avatar: '/images/avatar-lakshmi.jpg',
+    feedback: 'Clean facility and quick report delivery. Highly recommended.',
+    rating: 5
   }
 ];
 
 const Testimonials = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+  };
+
   return (
-    <section className="section section-alt">
+    <section className="section testimonials-section">
       <div className="container">
-        <div className="section-header">
-          <span className="section-subtitle">Patient Experiences</span>
-          <h2 className="section-title">What Trichy Families Say About Us</h2>
-          <p className="section-desc">
-            Read authentic feedback from patients and medical practitioners who rely on Doctor Diagnostics Center for diagnostic decisions.
-          </p>
+        
+        {/* Header with Nav Arrows on the right */}
+        <div className="section-header-split">
+          <div>
+            <span className="section-tag-eyebrow">PATIENT TESTIMONIALS</span>
+            <h2 className="section-main-heading">What Our Patients Say</h2>
+          </div>
+
+          <div className="testimonial-arrows">
+            <button 
+              type="button" 
+              onClick={handlePrev} 
+              className="t-nav-arrow"
+              aria-label="Previous Testimonial"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button 
+              type="button" 
+              onClick={handleNext} 
+              className="t-nav-arrow"
+              aria-label="Next Testimonial"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
 
+        {/* 3 Review Cards */}
         <div className="testimonials-grid">
-          {TESTIMONIALS.map((t, idx) => (
-            <div key={idx} className="testimonial-card">
+          {TESTIMONIALS.map((t) => (
+            <div key={t.id} className="testimonial-card">
+              
+              {/* Star Rating */}
               <div className="testimonial-stars">
                 {[...Array(t.rating)].map((_, i) => (
                   <Star key={i} size={16} fill="#F59E0B" color="#F59E0B" />
                 ))}
               </div>
 
-              <p className="testimonial-text">"{t.feedback}"</p>
+              {/* Feedback Quote */}
+              <p className="testimonial-quote">"{t.feedback}"</p>
 
-              <div className="testimonial-footer">
-                <div className="testimonial-avatar">
-                  <UserCheck size={20} color="var(--color-primary)" />
-                </div>
-                <div>
-                  <h4 className="testimonial-name">{t.name}</h4>
-                  <div className="testimonial-meta">{t.role} • {t.location}</div>
-                  <span className="testimonial-test-badge">{t.test}</span>
+              {/* Author Row with Avatar Image */}
+              <div className="testimonial-author">
+                <img
+                  src={t.avatar}
+                  alt={t.name}
+                  className="testimonial-avatar-img"
+                  loading="lazy"
+                />
+                <div className="testimonial-author-info">
+                  <h4 className="author-name">{t.name}</h4>
+                  <span className="author-city">{t.location}</span>
                 </div>
               </div>
+
             </div>
           ))}
         </div>
+
       </div>
 
       <style>{`
+        .testimonials-section {
+          background-color: var(--color-bg);
+          padding: 3.5rem 0;
+          border-bottom: 1px solid var(--color-border);
+        }
+        .section-header-split {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          margin-bottom: 2rem;
+          gap: 1rem;
+        }
+        .section-tag-eyebrow {
+          font-size: 0.8125rem;
+          font-weight: 700;
+          color: var(--color-primary);
+          letter-spacing: 0.8px;
+          text-transform: uppercase;
+          display: block;
+          margin-bottom: 4px;
+        }
+        .section-main-heading {
+          font-size: clamp(1.6rem, 2.3vw, 2.1rem);
+          font-weight: 800;
+          color: var(--color-text-main);
+          line-height: 1.25;
+          margin: 0;
+        }
+
+        .testimonial-arrows {
+          display: flex;
+          gap: 8px;
+        }
+        .t-nav-arrow {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: #ffffff;
+          border: 1px solid var(--color-border);
+          color: var(--color-text-main);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all var(--transition-fast);
+        }
+        .t-nav-arrow:hover {
+          background: var(--color-primary);
+          color: #ffffff;
+          border-color: var(--color-primary);
+        }
+
+        /* 3 Cards */
         .testimonials-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 2rem;
+          gap: 1.75rem;
         }
         .testimonial-card {
           background: #ffffff;
-          border-radius: var(--radius-xl);
+          border-radius: var(--radius-lg);
           border: 1px solid var(--color-border);
-          padding: 2rem;
+          box-shadow: var(--shadow-sm);
+          padding: 1.75rem;
           display: flex;
           flex-direction: column;
-          box-shadow: var(--shadow-sm);
+          transition: transform var(--transition-normal), box-shadow var(--transition-normal);
         }
+        .testimonial-card:hover {
+          transform: translateY(-3px);
+          box-shadow: var(--shadow-md);
+          border-color: rgba(11, 66, 111, 0.2);
+        }
+
         .testimonial-stars {
           display: flex;
           gap: 4px;
           margin-bottom: 1rem;
         }
-        .testimonial-text {
+        .testimonial-quote {
           font-size: 0.925rem;
-          line-height: 1.65;
+          line-height: 1.55;
           color: var(--color-text-body);
           margin-bottom: 1.5rem;
           flex: 1;
-          font-style: italic;
         }
-        .testimonial-footer {
+
+        .testimonial-author {
           display: flex;
           align-items: center;
           gap: 12px;
+          padding-top: 1rem;
           border-top: 1px solid var(--color-border-subtle);
-          padding-top: 1.25rem;
         }
-        .testimonial-avatar {
-          width: 42px;
-          height: 42px;
+        .testimonial-avatar-img {
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
-          background: var(--color-primary-light);
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          object-fit: cover;
+          border: 2px solid var(--color-secondary);
           flex-shrink: 0;
         }
-        .testimonial-name {
+        .author-name {
           font-size: 0.95rem;
-          color: var(--color-primary-dark);
-          margin-bottom: 2px;
+          font-weight: 700;
+          color: var(--color-text-main);
+          margin-bottom: 1px;
         }
-        .testimonial-meta {
-          font-size: 0.775rem;
+        .author-city {
+          font-size: 0.8rem;
           color: var(--color-text-muted);
-          margin-bottom: 4px;
-        }
-        .testimonial-test-badge {
-          display: inline-block;
-          font-size: 0.7rem;
-          font-weight: 600;
-          color: var(--color-secondary);
-          background: var(--color-secondary-light);
-          padding: 2px 6px;
-          border-radius: 4px;
         }
 
         @media (max-width: 1024px) {

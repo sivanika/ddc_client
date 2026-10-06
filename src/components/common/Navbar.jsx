@@ -32,7 +32,7 @@ const Navbar = ({ onOpenBooking }) => {
           <div className="top-bar-left">
             <span className="top-item top-address">
               <MapPin size={13} className="top-icon" />
-              <span>No. 42, Salai Road, Thillai Nagar, Trichy</span>
+              <span>Opposite SBI, Near Aruna Theatre Stop, Puthur Main Rd, Woriyur, Trichy-620003</span>
             </span>
             <span className="top-item top-hours">
               <Clock size={13} className="top-icon" />

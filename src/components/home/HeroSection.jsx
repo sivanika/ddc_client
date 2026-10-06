@@ -20,19 +20,20 @@ import api from '../../services/api';
 
 const POPULAR_CHIPS = [
   { label: 'CBC', query: 'CBC' },
-  { label: 'HbA1c', query: 'HbA1c' },
-  { label: 'Thyroid Profile', query: 'Thyroid' },
   { label: 'Lipid Profile', query: 'Lipid' },
-  { label: 'Master Health Checkup', isPackage: true, path: '/packages' }
+  { label: 'Thyroid Profile', query: 'Thyroid' },
+  { label: 'Diabetes Package', isPackage: true, path: '/packages' },
+  { label: 'Vitamin D', query: 'Vitamin D' },
+  { label: 'Full Body Checkup', isPackage: true, path: '/packages' }
 ];
 
 const HERO_SLIDES = [
   {
     id: 'master-checkup',
     image: '/images/lab-microscope.jpg',
-    badge: "Trichy's Trusted Diagnostic Laboratory",
-    title: 'Reliable Diagnostics. Better Health.',
-    subtitle: 'Get accurate diagnostic testing, comprehensive health checkups, digital reports, and convenient home sample collection from Doctor Diagnostics Center in Trichy.',
+    badge: 'Diagnostic Center in Trichy',
+    title: 'Accurate Diagnostics for a Healthier Tomorrow',
+    subtitle: 'Comprehensive lab tests, health checkups and diagnostic services with a patient-first approach in Trichy.',
     highlightText: 'Featured Package: Master Health Checkup (68 Parameters)',
     highlightPrice: '₹1,999',
     highlightMrp: '₹3,800',

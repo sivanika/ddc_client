@@ -3,43 +3,30 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Home, 
   MapPin, 
-  Calendar, 
-  CheckCircle2, 
   Clock, 
-  MessageSquare,
-  ShieldCheck,
-  ChevronRight
+  ShieldCheck, 
+  ArrowRight,
+  UserCheck,
+  CheckCircle2
 } from 'lucide-react';
 
-const STEPS = [
+const HIGHLIGHTS = [
   {
-    num: '1',
-    title: 'Select Tests & Request Pickup',
-    desc: 'Choose your individual diagnostic blood tests or health packages online or via WhatsApp.'
+    icon: <UserCheck size={20} className="hc-badge-icon" />,
+    text: 'Trained Phlebotomists'
   },
   {
-    num: '2',
-    title: 'Choose Available Date & Time',
-    desc: 'Pick your preferred morning slot between 6:30 AM and 12:00 PM for fasting tests.'
+    icon: <ShieldCheck size={20} className="hc-badge-icon" />,
+    text: 'Safe & Hygienic Process'
   },
   {
-    num: '3',
-    title: 'Sterile Collection at Doorstep',
-    desc: 'Certified phlebotomists arrive with barcoded vacuum tubes, single-use needles, and cold-chain transport.'
+    icon: <Clock size={20} className="hc-badge-icon" />,
+    text: 'Flexible Time Slots'
+  },
+  {
+    icon: <MapPin size={20} className="hc-badge-icon" />,
+    text: 'Available Across Trichy'
   }
-];
-
-const LOCALITIES = [
-  'Thillai Nagar',
-  'Cantonment',
-  'KK Nagar',
-  'Srirangam',
-  'Woraiyur',
-  'Tennur',
-  'TVS Tollgate',
-  'Palakkarai',
-  'Ponmalai',
-  'Kattur'
 ];
 
 const HomeCollectionCTA = ({ onOpenBooking }) => {
@@ -58,203 +45,102 @@ const HomeCollectionCTA = ({ onOpenBooking }) => {
   return (
     <section className="section home-collection-section">
       <div className="container">
-        <div className="hc-banner">
-          <div className="hc-banner-grid">
+        <div className="hc-card-wrapper">
+          
+          <div className="hc-split-grid">
             
-            {/* Left Narrative & Steps */}
-            <div className="hc-banner-left">
-              <span className="section-subtitle hc-subtitle">Doorstep Service</span>
-              <h2 className="section-title hc-title">Home Sample Collection in Trichy</h2>
-              <p className="section-desc hc-desc">
-                Safe, convenient, and sterile sample pickup so you don't have to travel on an empty stomach.
-              </p>
-
-              {/* 3-Step Process List */}
-              <div className="hc-steps-list">
-                {STEPS.map((step) => (
-                  <div key={step.num} className="hc-step-row">
-                    <div className="hc-step-badge">{step.num}</div>
-                    <div className="hc-step-body">
-                      <h3 className="hc-step-title">{step.title}</h3>
-                      <p className="hc-step-desc">{step.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Coverage & Charges Information Box */}
-              <div className="hc-info-strip">
-                <div className="hc-coverage">
-                  <MapPin size={16} className="hc-strip-icon" />
-                  <span>
-                    <strong>Serviceable Areas:</strong> {LOCALITIES.join(', ')} &amp; nearby Trichy areas.
-                  </span>
-                </div>
-                <div className="hc-pricing-note">
-                  <ShieldCheck size={16} className="hc-strip-icon" />
-                  <span>
-                    <strong>Pickup Charges:</strong> Free collection for orders above ₹500 &amp; senior citizens. Nominal ₹100 for single routine tests.
-                  </span>
-                </div>
-              </div>
-
-              {/* Action CTAs */}
-              <div className="hc-actions">
-                <button
-                  type="button"
-                  onClick={handleBookClick}
-                  className="btn btn-secondary btn-lg"
-                >
-                  <Home size={18} />
-                  <span>Book Home Sample Collection</span>
-                </button>
-                <a
-                  href="https://wa.me/919443152200?text=Hello%20Doctor%20Diagnostics%20Trichy,%20I%20would%20like%20to%20schedule%20a%20home%20sample%20pickup."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-whatsapp btn-lg"
-                >
-                  <MessageSquare size={18} />
-                  <span>WhatsApp Pickup Request</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Right Visual Image Showcase */}
-            <div className="hc-photo-card">
+            {/* Left Column: Photo of Phlebotomist at Patient Doorstep */}
+            <div className="hc-image-side">
               <img
                 src="/images/home-collection.jpg"
-                alt="Doctor Diagnostics Certified Phlebotomist for Home Sample Collection"
-                className="hc-photo-img"
+                alt="Doctor Diagnostics Phlebotomist Home Sample Collection in Trichy"
+                className="hc-main-img"
                 loading="lazy"
               />
-              <div className="hc-photo-badge">
-                <ShieldCheck size={16} className="badge-shield-icon" />
+              <div className="hc-badge-overlay">
+                <ShieldCheck size={16} color="#5EEAD4" />
                 <span>Cold-Chain Insulated Kit &amp; Sterile Equipment</span>
               </div>
             </div>
 
+            {/* Right Column: Narrative, CTA and 4 Key Attributes */}
+            <div className="hc-text-side">
+              <span className="section-tag-eyebrow">HOME SAMPLE COLLECTION</span>
+              <h2 className="hc-title">Lab Tests at Your Doorstep in Trichy</h2>
+              <p className="hc-description">
+                Trained professionals, safe and hygienic process, available across Trichy and nearby areas with same-day digital reporting.
+              </p>
+
+              {/* Action Button */}
+              <div className="hc-cta-row">
+                <button
+                  type="button"
+                  onClick={handleBookClick}
+                  className="btn btn-primary hc-action-btn"
+                >
+                  <span>Request Home Collection</span>
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+
+              {/* 4 Feature Items */}
+              <div className="hc-features-list">
+                {HIGHLIGHTS.map((item, idx) => (
+                  <div key={idx} className="hc-feature-row">
+                    <div className="hc-icon-wrap">
+                      {item.icon}
+                    </div>
+                    <span className="hc-feature-label">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+
           </div>
+
         </div>
       </div>
 
       <style>{`
         .home-collection-section {
-          background-color: var(--color-bg);
+          background-color: var(--color-surface);
           padding: 3.5rem 0;
+          border-bottom: 1px solid var(--color-border);
         }
-        .hc-banner {
+        .hc-card-wrapper {
           background: #ffffff;
           border-radius: var(--radius-xl);
           border: 1px solid var(--color-border);
-          box-shadow: var(--shadow-sm);
-          padding: 2.5rem;
+          box-shadow: var(--shadow-card);
+          overflow: hidden;
         }
-        .hc-banner-grid {
+        .hc-split-grid {
           display: grid;
-          grid-template-columns: 1.2fr 0.85fr;
-          gap: 2.5rem;
+          grid-template-columns: 1.1fr 1fr;
           align-items: center;
-        }
-        .hc-subtitle {
-          margin-bottom: 0.35rem;
-        }
-        .hc-title {
-          font-size: clamp(1.85rem, 2.5vw, 2.25rem);
-          margin-bottom: 0.5rem;
-        }
-        .hc-desc {
-          font-size: 0.95rem;
-          margin-bottom: 1.75rem;
-        }
-        .hc-steps-list {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          margin-bottom: 1.5rem;
-        }
-        .hc-step-row {
-          display: flex;
-          align-items: flex-start;
-          gap: 14px;
-        }
-        .hc-step-badge {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background: var(--color-primary);
-          color: #ffffff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          font-size: 0.85rem;
-          flex-shrink: 0;
-          margin-top: 2px;
-        }
-        .hc-step-body {
-          flex: 1;
-        }
-        .hc-step-title {
-          font-size: 0.975rem;
-          color: var(--color-text-main);
-          margin-bottom: 2px;
-        }
-        .hc-step-desc {
-          font-size: 0.825rem;
-          color: var(--color-text-muted);
-          line-height: 1.45;
-        }
-        .hc-info-strip {
-          background: var(--color-secondary-light);
-          border: 1px solid rgba(7, 135, 124, 0.2);
-          border-radius: var(--radius-md);
-          padding: 0.85rem 1rem;
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          margin-bottom: 1.75rem;
-        }
-        .hc-coverage, .hc-pricing-note {
-          display: flex;
-          align-items: flex-start;
-          gap: 8px;
-          font-size: 0.8125rem;
-          color: var(--color-text-body);
-        }
-        .hc-strip-icon {
-          color: var(--color-secondary);
-          flex-shrink: 0;
-          margin-top: 2px;
-        }
-        .hc-actions {
-          display: flex;
-          gap: 12px;
-          flex-wrap: wrap;
         }
 
-        /* Photo Card */
-        .hc-photo-card {
+        /* Left Side Image */
+        .hc-image-side {
           position: relative;
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          box-shadow: var(--shadow-md);
-          border: 1px solid var(--color-border);
           height: 100%;
-          min-height: 400px;
+          min-height: 380px;
+          background: #0B426F;
+          overflow: hidden;
         }
-        .hc-photo-img {
+        .hc-main-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           display: block;
         }
-        .hc-photo-badge {
+        .hc-badge-overlay {
           position: absolute;
           bottom: 16px;
           left: 16px;
           right: 16px;
-          background: rgba(16, 45, 70, 0.88);
+          background: rgba(6, 42, 74, 0.88);
           backdrop-filter: blur(6px);
           color: #ffffff;
           padding: 8px 14px;
@@ -266,27 +152,95 @@ const HomeCollectionCTA = ({ onOpenBooking }) => {
           gap: 8px;
           border: 1px solid rgba(255, 255, 255, 0.15);
         }
-        .badge-shield-icon {
-          color: #5EEAD4;
+
+        /* Right Side Text */
+        .hc-text-side {
+          padding: 3rem 2.75rem;
+          display: flex;
+          flex-direction: column;
+        }
+        .section-tag-eyebrow {
+          font-size: 0.8125rem;
+          font-weight: 700;
+          color: var(--color-primary);
+          letter-spacing: 0.8px;
+          text-transform: uppercase;
+          display: block;
+          margin-bottom: 6px;
+        }
+        .hc-title {
+          font-size: clamp(1.65rem, 2.4vw, 2.2rem);
+          font-weight: 800;
+          color: var(--color-text-main);
+          line-height: 1.25;
+          margin-bottom: 0.75rem;
+        }
+        .hc-description {
+          font-size: 0.95rem;
+          color: var(--color-text-muted);
+          line-height: 1.55;
+          margin-bottom: 1.75rem;
+        }
+        .hc-cta-row {
+          margin-bottom: 2rem;
+        }
+        .hc-action-btn {
+          padding: 12px 24px;
+          font-size: 0.95rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        /* 4 Highlights */
+        .hc-features-list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.15rem 1.5rem;
+          border-top: 1px solid var(--color-border-subtle);
+          padding-top: 1.75rem;
+        }
+        .hc-feature-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .hc-icon-wrap {
+          color: var(--color-secondary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
           flex-shrink: 0;
+        }
+        .hc-badge-icon {
+          color: var(--color-secondary);
+        }
+        .hc-feature-label {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: var(--color-text-body);
         }
 
         @media (max-width: 1024px) {
-          .hc-banner-grid {
+          .hc-split-grid {
             grid-template-columns: 1fr;
-            gap: 2rem;
           }
-          .hc-photo-card {
+          .hc-image-side {
             min-height: 280px;
             max-height: 340px;
           }
+          .hc-text-side {
+            padding: 2.25rem 1.5rem;
+          }
         }
         @media (max-width: 640px) {
-          .hc-banner {
-            padding: 1.5rem 1.25rem;
+          .hc-features-list {
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
           }
-          .hc-actions .btn {
+          .hc-action-btn {
             width: 100%;
+            justify-content: center;
           }
         }
       `}</style>

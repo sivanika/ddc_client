@@ -43,7 +43,7 @@ const AboutPage = () => {
                 Established in Tiruchirappalli, <strong>Doctor Diagnostics Center</strong> was founded with a singular conviction: that accurate, timely diagnostics are the bedrock of curative and preventive medicine.
               </p>
               <p className="about-body">
-                Located conveniently at Salai Road, near Thillai Nagar, our central laboratory integrates automated clinical biochemistry, laser flow cytometry hematology, chemiluminescent immunoassay (CLIA), HPLC glycated hemoglobin, 12-lead digital cardiology ECG, and low-dose digital radiology.
+                Located conveniently on Puthur Main Road, Woriyur (Opposite SBI, Near to Aruna Theatre Stop), our central laboratory integrates automated clinical biochemistry, laser flow cytometry hematology, chemiluminescent immunoassay (CLIA), HPLC glycated hemoglobin, 12-lead digital cardiology ECG, and low-dose digital radiology.
               </p>
 
               <div className="about-features-grid">
@@ -66,7 +66,7 @@ const AboutPage = () => {
               </div>
 
               <Link to="/contact" className="btn btn-primary btn-lg">
-                <span>Visit Our Salai Road Center</span>
+                <span>Visit Our Woriyur Center</span>
               </Link>
             </div>
 
@@ -104,7 +104,7 @@ const AboutPage = () => {
               />
               <div className="about-showcase-caption">
                 <strong>Central Diagnostic Facility</strong>
-                <span>Salai Road, Thillai Nagar, Trichy</span>
+                <span>Puthur Main Road, Woriyur, Trichy</span>
               </div>
             </div>
 

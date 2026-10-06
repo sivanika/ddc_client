@@ -231,7 +231,7 @@ const HomeCollectionPage = () => {
                   Doorstep Phlebotomy Request Form
                 </h3>
                 <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
-                  All equipment is single-use, sterile, and cold-chain transported to our Salai Road central laboratory.
+                  All equipment is single-use, sterile, and cold-chain transported to our Woriyur central laboratory.
                 </p>
               </div>
 

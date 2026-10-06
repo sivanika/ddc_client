@@ -110,21 +110,34 @@ const ContactPage = () => {
             
             {/* Center Contact Info */}
             <div className="contact-info-card">
-              <h2 style={{ fontSize: '1.6rem', color: 'var(--color-primary-dark)', marginBottom: '0.75rem' }}>
+              <div className="contact-card-banner">
+                <img
+                  src="/images/hero-lab.jpg"
+                  alt="Doctor Diagnostics Center Facility Trichy"
+                  className="contact-card-banner-img"
+                />
+                <div className="contact-card-banner-overlay">
+                  <strong>Central Diagnostics Laboratory</strong>
+                  <span>Woriyur, Trichy - 620003</span>
+                </div>
+              </div>
+
+              <h2 style={{ fontSize: '1.5rem', color: 'var(--color-primary-dark)', marginBottom: '0.5rem', marginTop: '1.25rem' }}>
                 Doctor Diagnostics Center
               </h2>
-              <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', marginBottom: '2rem', lineHeight: 1.6 }}>
-                Centrally located on Salai Road, Thillai Nagar, providing accessible healthcare diagnostics to the people of Tiruchirappalli and surrounding districts.
+              <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: 1.55 }}>
+                Centrally located on Puthur Main Road, Woriyur, providing accessible healthcare diagnostics and sample testing across Trichy.
               </p>
 
               <div className="c-item">
                 <MapPin size={22} className="c-icon" />
                 <div>
                   <strong>Center Address:</strong>
-                  <div>No. 42, Salai Road, Near Thillai Nagar 1st Cross,</div>
-                  <div>Tiruchirappalli - 620018, Tamil Nadu, India</div>
+                  <div>Opposite SBI, Near to Aruna Theatre Stop,</div>
+                  <div>Ramalinga Nagar, Puthur Main Road, Woriyur,</div>
+                  <div>Tiruchirappalli - 620003, Tamil Nadu, India</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                    Landmark: Opp. City Union Bank / Fort Station Link Road
+                    Landmark: Opposite State Bank of India / Near Aruna Theatre Stop
                   </div>
                 </div>
               </div>
@@ -133,7 +146,7 @@ const ContactPage = () => {
                 <Clock size={22} className="c-icon" />
                 <div>
                   <strong>Working Hours:</strong>
-                  <div>Mon - Sat: <strong>6:30 AM – 9:00 PM</strong></div>
+                  <div>Mon - Sat: <strong>6:30 AM – 8:30 PM</strong></div>
                   <div>Sunday: <strong>7:00 AM – 2:00 PM</strong></div>
                   <div style={{ color: 'var(--color-secondary)', fontSize: '0.825rem', marginTop: '4px' }}>
                     Emergency &amp; Stat sample collection available
@@ -175,9 +188,9 @@ const ContactPage = () => {
                 </div>
               </div>
 
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: '1.75rem' }}>
                 <a
-                  href="https://maps.google.com/?q=Salai+Road+Thillai+Nagar+Trichy"
+                  href="https://maps.google.com/?q=Aruna+Theatre+Puthur+Main+Road+Woriyur+Trichy+620003"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline"
@@ -394,6 +407,47 @@ const ContactPage = () => {
           border: 1px solid var(--color-border);
           box-shadow: var(--shadow-card);
           padding: 2.5rem;
+          overflow: hidden;
+        }
+        .contact-info-card {
+          padding-top: 0;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .contact-card-banner {
+          position: relative;
+          width: 100%;
+          height: 180px;
+          overflow: hidden;
+          background: #0B426F;
+        }
+        .contact-card-banner-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .contact-card-banner-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(6, 42, 74, 0.9) 0%, rgba(6, 42, 74, 0.2) 60%, rgba(0,0,0,0) 100%);
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: 14px 20px;
+          color: #ffffff;
+        }
+        .contact-card-banner-overlay strong {
+          color: #5EEAD4;
+          font-size: 0.95rem;
+        }
+        .contact-card-banner-overlay span {
+          color: #E2E8F0;
+          font-size: 0.8rem;
+        }
+        .contact-info-card > *:not(.contact-card-banner) {
+          margin-left: 2rem;
+          margin-right: 2rem;
         }
         .c-item {
           display: flex;

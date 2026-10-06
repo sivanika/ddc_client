@@ -93,7 +93,7 @@ const AppointmentModal = ({ isOpen, onClose, preselectedItem = null }) => {
     gender: 'male',
     appointmentDate: todayStr,
     timeSlot: '07:30 AM - 08:30 AM',
-    location: 'Salai Road, Thillai Nagar',
+    location: 'Opposite SBI, Puthur Main Rd, Woriyur',
     address: '',
     locality: 'Thillai Nagar',
     pincode: '620018',
@@ -339,7 +339,7 @@ const AppointmentModal = ({ isOpen, onClose, preselectedItem = null }) => {
               <span>{confirmedBooking ? 'Booking & Payment Confirmed!' : 'Book Diagnostic Appointment'}</span>
             </h3>
             <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
-              Doctor Diagnostics Center • Salai Road, Thillai Nagar, Trichy
+              Doctor Diagnostics Center • Opposite SBI, Near Aruna Theatre, Woriyur, Trichy - 620003
             </p>
           </div>
           <button 

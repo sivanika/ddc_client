@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import HeroSection from '../components/home/HeroSection';
-import PopularTestsSection from '../components/home/PopularTestsSection';
+import CategoryQuickBar from '../components/home/CategoryQuickBar';
 import PopularPackagesSection from '../components/home/PopularPackagesSection';
-import HomeCollectionCTA from '../components/home/HomeCollectionCTA';
 import WhyChooseUs from '../components/home/WhyChooseUs';
-import HowItWorks from '../components/home/HowItWorks';
-import FaqSection from '../components/home/FaqSection';
+import OurServicesSection from '../components/home/OurServicesSection';
+import HomeCollectionCTA from '../components/home/HomeCollectionCTA';
+import Testimonials from '../components/home/Testimonials';
 import LocationHours from '../components/home/LocationHours';
+import FaqSection from '../components/home/FaqSection';
 import AppointmentModal from '../components/booking/AppointmentModal';
 
 const HomePage = () => {
@@ -20,29 +21,32 @@ const HomePage = () => {
 
   return (
     <div className="homepage-wrapper">
-      {/* 1. Hero Section with Banner Carousel & Text Overlay */}
+      {/* 1. Hero Section with Banner & Search */}
       <HeroSection onOpenBooking={handleOpenBooking} />
 
-      {/* 2. Popular Diagnostic Tests Grid */}
-      <PopularTestsSection onSelectTest={handleOpenBooking} />
+      {/* 2. Quick Category Bar (5 visual category pill cards) */}
+      <CategoryQuickBar />
 
-      {/* 3. Health Checkup Packages */}
+      {/* 3. Popular Health Checkup Packages (4 cards with images) */}
       <PopularPackagesSection onSelectPackage={handleOpenBooking} />
 
-      {/* 4. Home Sample Collection 3-Step Process & Coverage */}
-      <HomeCollectionCTA onOpenBooking={handleOpenBooking} />
-
-      {/* 5. Why Choose Doctor Diagnostics Center (Laboratory Standards) */}
+      {/* 4. Why Choose Us (4 features + Facility Video Walkthrough Media card) */}
       <WhyChooseUs />
 
-      {/* 6. How It Works (5-Step Patient Journey) */}
-      <HowItWorks />
+      {/* 5. A Wide Range of Diagnostic Services (4 service cards with images) */}
+      <OurServicesSection />
 
-      {/* 7. Patient Support and FAQs (Interactive Accordion) */}
-      <FaqSection />
+      {/* 6. Home Sample Collection (Phlebotomy photo card + 4 highlights) */}
+      <HomeCollectionCTA onOpenBooking={handleOpenBooking} />
 
-      {/* 8. Center Location, Opening Hours & Directions */}
+      {/* 7. Patient Testimonials (3 cards with avatars) */}
+      <Testimonials />
+
+      {/* 8. Center Location, Map & Quick Enquiry Form */}
       <LocationHours onOpenBooking={handleOpenBooking} />
+
+      {/* 9. Patient Support & FAQs */}
+      <FaqSection />
 
       {/* Booking Appointment Modal with Real Backend Integration */}
       <AppointmentModal

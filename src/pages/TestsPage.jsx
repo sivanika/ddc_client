@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import api from '../services/api';
 import AppointmentModal from '../components/booking/AppointmentModal';
+import { getTestCategoryImg } from '../components/home/PopularTestsSection';
 
 const CATEGORIES = [
   'All',
@@ -203,59 +204,70 @@ const TestsPage = () => {
               {filteredTests.map((test) => (
                 <div key={test._id} className="test-card">
                   
-                  <div className="test-card-top">
-                    <div className="test-code-badge">{test.code}</div>
-                    <span className="test-cat-badge">{test.category}</span>
-                  </div>
-
-                  <h3 className="test-name">{test.name}</h3>
-                  <p className="test-desc">{test.description}</p>
-
-                  <div className="test-meta-grid">
-                    <div className="test-meta-item">
-                      <Droplet size={15} color="var(--color-primary)" />
-                      <span>{test.sampleType}</span>
-                    </div>
-                    <div className="test-meta-item">
-                      <Clock size={15} color="var(--color-secondary)" />
-                      <span>Report in {test.tatHours} hrs</span>
+                  {/* Category Image Banner */}
+                  <div className="test-card-banner">
+                    <img
+                      src={getTestCategoryImg(test.category)}
+                      alt={test.name}
+                      className="test-card-banner-img"
+                      loading="lazy"
+                    />
+                    <div className="test-card-banner-overlay">
+                      <span className="test-cat-badge">{test.category}</span>
+                      <div className="test-code-badge">{test.code}</div>
                     </div>
                   </div>
 
-                  {test.fastingRequired && (
-                    <div className="test-fasting-note">
-                      <AlertCircle size={14} />
-                      <span>{test.fastingHours} hrs overnight fasting required</span>
-                    </div>
-                  )}
+                  <div className="test-card-inner-body">
+                    <h3 className="test-name">{test.name}</h3>
+                    <p className="test-desc">{test.description}</p>
 
-                  <div className="test-price-row">
-                    <div>
-                      <span className="price-val">₹{test.price}</span>
-                      {test.mrp && <span className="mrp-val">₹{test.mrp}</span>}
+                    <div className="test-meta-grid">
+                      <div className="test-meta-item">
+                        <Droplet size={15} color="var(--color-primary)" />
+                        <span>{test.sampleType}</span>
+                      </div>
+                      <div className="test-meta-item">
+                        <Clock size={15} color="var(--color-secondary)" />
+                        <span>Report in {test.tatHours} hrs</span>
+                      </div>
                     </div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-                      {test.homeCollectionAvailable ? '✓ Home Pickup' : 'Center Visit Only'}
-                    </div>
-                  </div>
 
-                  <div className="test-card-actions">
-                    <button
-                      onClick={() => setDetailModalTest(test)}
-                      className="btn btn-outline btn-sm"
-                      style={{ flex: 1 }}
-                    >
-                      <Info size={15} />
-                      <span>Preparation</span>
-                    </button>
-                    <button
-                      onClick={() => handleBookTest(test)}
-                      className="btn btn-primary btn-sm"
-                      style={{ flex: 1.2 }}
-                    >
-                      <Calendar size={15} />
-                      <span>Book Test</span>
-                    </button>
+                    {test.fastingRequired && (
+                      <div className="test-fasting-note">
+                        <AlertCircle size={14} />
+                        <span>{test.fastingHours} hrs overnight fasting required</span>
+                      </div>
+                    )}
+
+                    <div className="test-price-row">
+                      <div>
+                        <span className="price-val">₹{test.price}</span>
+                        {test.mrp && <span className="mrp-val">₹{test.mrp}</span>}
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+                        {test.homeCollectionAvailable ? '✓ Home Pickup' : 'Center Visit Only'}
+                      </div>
+                    </div>
+
+                    <div className="test-card-actions">
+                      <button
+                        onClick={() => setDetailModalTest(test)}
+                        className="btn btn-outline btn-sm"
+                        style={{ flex: 1 }}
+                      >
+                        <Info size={15} />
+                        <span>Preparation</span>
+                      </button>
+                      <button
+                        onClick={() => handleBookTest(test)}
+                        className="btn btn-primary btn-sm"
+                        style={{ flex: 1.2 }}
+                      >
+                        <Calendar size={15} />
+                        <span>Book Test</span>
+                      </button>
+                    </div>
                   </div>
 
                 </div>
@@ -465,7 +477,7 @@ const TestsPage = () => {
           background: #ffffff;
           border-radius: var(--radius-lg);
           border: 1px solid var(--color-border);
-          padding: 1.5rem;
+          overflow: hidden;
           display: flex;
           flex-direction: column;
           box-shadow: var(--shadow-card);
@@ -475,6 +487,38 @@ const TestsPage = () => {
           transform: translateY(-4px);
           box-shadow: var(--shadow-card-hover);
           border-color: rgba(11, 71, 120, 0.25);
+        }
+        .test-card-banner {
+          position: relative;
+          width: 100%;
+          height: 120px;
+          overflow: hidden;
+          background: #0B426F;
+        }
+        .test-card-banner-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.4s ease;
+        }
+        .test-card:hover .test-card-banner-img {
+          transform: scale(1.06);
+        }
+        .test-card-banner-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(6, 42, 74, 0.9) 0%, rgba(6, 42, 74, 0.3) 60%, rgba(0,0,0,0.1) 100%);
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          padding: 8px 12px;
+        }
+        .test-card-inner-body {
+          padding: 1.25rem;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
         }
         .test-card-top {
           display: flex;

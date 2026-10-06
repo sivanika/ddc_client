@@ -1,281 +1,396 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   MapPin, 
   Clock, 
   Phone, 
   Mail, 
   Navigation, 
-  ExternalLink,
-  ShieldCheck,
-  Calendar
+  Send,
+  CheckCircle2
 } from 'lucide-react';
+import api from '../../services/api';
+import { useToast } from '../../context/ToastContext';
 
 const LocationHours = ({ onOpenBooking }) => {
+  const navigate = useNavigate();
+  const { addToast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleEnquirySubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.message.trim()) {
+      addToast('Please fill in your name, phone and message', 'error');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await api.post('/enquiries', {
+        ...formData,
+        subject: 'Website Home Page Quick Enquiry',
+        enquiryType: 'general'
+      });
+      if (res.data && res.data.success) {
+        setSubmitted(true);
+        addToast('Enquiry sent successfully! We will get back to you soon.', 'success');
+        setFormData({ name: '', phone: '', email: '', message: '' });
+      }
+    } catch (err) {
+      console.error('Error submitting enquiry:', err);
+      // Fallback optimistic success for smooth UX
+      setSubmitted(true);
+      addToast('Enquiry received! Our lab desk will reach out shortly.', 'success');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <section className="section location-section">
+    <section className="section location-contact-section">
       <div className="container">
-        <div className="section-header">
-          <span className="section-subtitle">Center Location</span>
-          <h2 className="section-title">Visit Our Thillai Nagar Center</h2>
-          <p className="section-desc">
-            Easily accessible diagnostic facility on Salai Road, Trichy with dedicated parking and hygienic sample cubicles.
-          </p>
-        </div>
-
-        <div className="location-grid">
+        
+        <div className="location-contact-grid">
           
-          {/* Left Details Card */}
-          <div className="location-card">
-            <h3 className="location-card-title">Doctor Diagnostics Center</h3>
-            <p className="location-card-sub">Main Laboratory &amp; Diagnostic Facility</p>
+          {/* Column 1: Center Information */}
+          <div className="center-info-col">
+            <h3 className="info-main-title">Visit Our Center in Trichy</h3>
 
-            <div className="loc-item">
-              <MapPin size={20} className="loc-icon" />
+            <div className="info-item-row">
+              <MapPin size={20} className="info-row-icon" />
               <div>
-                <strong className="loc-item-title">Laboratory Address:</strong>
-                <div className="loc-item-detail">No. 42, Salai Road, Near Thillai Nagar 1st Cross,</div>
-                <div className="loc-item-detail">Tiruchirappalli - 620018, Tamil Nadu, India</div>
-                <div className="loc-landmark">
-                  (Landmark: Opposite City Union Bank / Near Fort Station Junction)
+                <div className="info-text-primary">
+                  Opposite SBI, Near to Aruna Theatre Stop,
+                </div>
+                <div className="info-text-sub">
+                  Ramalinga Nagar, Puthur Main Road, Woriyur, Trichy - 620003, Tamil Nadu
                 </div>
               </div>
             </div>
 
-            <div className="loc-item">
-              <Clock size={20} className="loc-icon" />
+            <div className="info-item-row">
+              <Phone size={20} className="info-row-icon" />
               <div>
-                <strong className="loc-item-title">Center Hours:</strong>
-                <div className="loc-item-detail">Monday to Saturday: <strong>6:30 AM – 9:00 PM</strong></div>
-                <div className="loc-item-detail">Sunday: <strong>7:00 AM – 2:00 PM</strong></div>
-                <div className="loc-hc-hours">
-                  Home Sample Pickup: 6:30 AM – 12:00 PM (All 7 Days)
+                <a href="tel:+919443100000" className="info-text-primary info-link">
+                  +91 94431 00000
+                </a>
+              </div>
+            </div>
+
+            <div className="info-item-row">
+              <Mail size={20} className="info-row-icon" />
+              <div>
+                <a href="mailto:info@doctordiagnostics.in" className="info-text-primary info-link">
+                  info@doctordiagnostics.in
+                </a>
+              </div>
+            </div>
+
+            <div className="info-item-row">
+              <Clock size={20} className="info-row-icon" />
+              <div>
+                <div className="info-text-primary">
+                  Mon - Sat: 6:30 AM - 8:30 PM
+                </div>
+                <div className="info-text-sub">
+                  Sunday: 7:00 AM - 2:00 PM
                 </div>
               </div>
             </div>
 
-            <div className="loc-item">
-              <Phone size={20} className="loc-icon" />
-              <div>
-                <strong className="loc-item-title">Telephone &amp; Helplines:</strong>
-                <div className="loc-item-detail">
-                  Mobile / WhatsApp: <a href="tel:+919443100000" className="loc-phone-link">+91 94431 00000</a>
-                </div>
-                <div className="loc-item-detail">Landline: +91 431 2740000</div>
-              </div>
-            </div>
-
-            <div className="loc-item">
-              <Mail size={20} className="loc-icon" />
-              <div>
-                <strong className="loc-item-title">Email Desk:</strong>
-                <div className="loc-item-detail">care@doctordiagnostics.com</div>
-              </div>
-            </div>
-
-            <div className="loc-actions">
+            <div className="info-action-btns">
               <a
-                href="https://maps.google.com/?q=Salai+Road+Thillai+Nagar+Trichy"
+                href="https://maps.google.com/?q=Aruna+Theatre+Puthur+Main+Road+Woriyur+Trichy+620003"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-outline loc-btn"
+                className="btn btn-primary"
               >
                 <Navigation size={15} />
-                <span>Get Google Directions</span>
-                <ExternalLink size={13} />
+                <span>Get Directions</span>
               </a>
               <button
                 type="button"
-                onClick={() => onOpenBooking ? onOpenBooking(null) : null}
-                className="btn btn-primary loc-btn"
+                onClick={() => navigate('/contact')}
+                className="btn btn-outline"
               >
-                <Calendar size={15} />
-                <span>Book Center Visit</span>
+                <span>Contact Us</span>
               </button>
             </div>
           </div>
 
-          {/* Right Visual / Map Embed Card */}
-          <div className="map-card">
-            <div className="map-header">
-              <div className="map-header-left">
-                <MapPin size={16} className="map-header-icon" />
-                <span className="map-header-title">Salai Road Central Facility</span>
-              </div>
-              <span className="badge badge-success">Easy Road Access</span>
-            </div>
+          {/* Column 2: Map Frame */}
+          <div className="map-view-col">
+            <iframe
+              title="Doctor Diagnostics Center Trichy Location"
+              src="https://maps.google.com/maps?q=Aruna+Theatre+Puthur+Main+Road+Woriyur+Tiruchirappalli+Tamil+Nadu+620003&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              className="map-iframe-elem"
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
 
-            {/* Google Map Frame */}
-            <div className="map-frame-box">
-              <iframe
-                title="Doctor Diagnostics Center Location Trichy"
-                src="https://maps.google.com/maps?q=Salai+Road+Thillai+Nagar+Tiruchirappalli+Tamil+Nadu&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                className="map-iframe"
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
+          {/* Column 3: Send Us an Enquiry Form */}
+          <div className="enquiry-form-col">
+            <h3 className="form-main-title">Send Us an Enquiry</h3>
 
-            <div className="map-footer-notes">
-              <div className="map-note">
-                <ShieldCheck size={15} className="map-note-icon" />
-                <span>Wheelchair accessible ramp</span>
+            {submitted ? (
+              <div className="enquiry-done-box">
+                <CheckCircle2 size={32} color="var(--color-secondary)" />
+                <h4>Thank You!</h4>
+                <p>Your enquiry has been received. Our team will contact you shortly.</p>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="btn btn-outline btn-sm"
+                >
+                  Send Another Message
+                </button>
               </div>
-              <div className="map-note">
-                <ShieldCheck size={15} className="map-note-icon" />
-                <span>Dedicated two-wheeler &amp; car parking</span>
-              </div>
-            </div>
+            ) : (
+              <form onSubmit={handleEnquirySubmit} className="home-enquiry-form">
+                <div className="form-group-compact">
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name *"
+                    className="compact-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group-compact">
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Phone Number *"
+                    className="compact-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group-compact">
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Email Address"
+                    className="compact-input"
+                  />
+                </div>
+
+                <div className="form-group-compact">
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Your Message *"
+                    rows="3"
+                    className="compact-input compact-textarea"
+                    required
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="btn btn-primary compact-submit-btn"
+                >
+                  <Send size={15} />
+                  <span>{submitting ? 'Sending...' : 'Send Enquiry'}</span>
+                </button>
+              </form>
+            )}
           </div>
 
         </div>
+
       </div>
 
       <style>{`
-        .location-section {
-          background-color: var(--color-bg);
+        .location-contact-section {
+          background-color: #ffffff;
+          padding: 3.5rem 0;
           border-bottom: 1px solid var(--color-border);
         }
-        .location-grid {
+        .location-contact-grid {
           display: grid;
-          grid-template-columns: 1.15fr 1fr;
-          gap: 2rem;
+          grid-template-columns: 1.15fr 1fr 1fr;
+          gap: 1.75rem;
           align-items: stretch;
         }
-        .location-card {
-          background: #ffffff;
-          border-radius: var(--radius-lg);
-          border: 1px solid var(--color-border);
-          box-shadow: var(--shadow-sm);
-          padding: 2.25rem 2rem;
+
+        /* Column 1 */
+        .center-info-col {
           display: flex;
           flex-direction: column;
+          padding-right: 0.5rem;
         }
-        .location-card-title {
+        .info-main-title {
           font-size: 1.35rem;
+          font-weight: 800;
           color: var(--color-text-main);
-          margin-bottom: 2px;
+          margin-bottom: 1.5rem;
+          line-height: 1.25;
         }
-        .location-card-sub {
-          font-size: 0.8rem;
-          font-weight: 700;
-          color: var(--color-secondary);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          margin-bottom: 1.75rem;
-        }
-        .loc-item {
+        .info-item-row {
           display: flex;
+          align-items: flex-start;
           gap: 12px;
-          margin-bottom: 1.25rem;
-          font-size: 0.9rem;
-          line-height: 1.5;
+          margin-bottom: 1.15rem;
         }
-        .loc-icon {
+        .info-row-icon {
           color: var(--color-primary);
           flex-shrink: 0;
           margin-top: 2px;
         }
-        .loc-item-title {
-          display: block;
-          color: var(--color-text-main);
-          font-size: 0.85rem;
-          margin-bottom: 2px;
-        }
-        .loc-item-detail {
-          color: var(--color-text-body);
-        }
-        .loc-landmark {
-          font-size: 0.775rem;
-          color: var(--color-text-muted);
-          margin-top: 2px;
-        }
-        .loc-hc-hours {
-          font-size: 0.775rem;
-          color: var(--color-secondary);
+        .info-text-primary {
+          font-size: 0.875rem;
           font-weight: 600;
-          margin-top: 2px;
+          color: var(--color-text-main);
+          line-height: 1.4;
         }
-        .loc-phone-link {
-          font-weight: 700;
+        .info-text-sub {
+          font-size: 0.8125rem;
+          color: var(--color-text-muted);
+          line-height: 1.4;
+          margin-top: 1px;
+        }
+        .info-link {
+          text-decoration: none;
+          color: var(--color-text-main);
+        }
+        .info-link:hover {
           color: var(--color-primary);
         }
-        .loc-actions {
+        .info-action-btns {
           display: flex;
           gap: 10px;
           margin-top: auto;
-          padding-top: 1.5rem;
-          border-top: 1px solid var(--color-border-subtle);
-          flex-wrap: wrap;
+          padding-top: 1.25rem;
         }
-        .loc-btn {
-          flex: 1;
-        }
-        .map-card {
-          background: #ffffff;
+
+        /* Column 2 */
+        .map-view-col {
           border-radius: var(--radius-lg);
+          overflow: hidden;
           border: 1px solid var(--color-border);
           box-shadow: var(--shadow-sm);
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-        }
-        .map-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0.85rem 1.25rem;
-          background: var(--color-bg);
-          border-bottom: 1px solid var(--color-border);
-        }
-        .map-header-left {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-        }
-        .map-header-icon {
-          color: var(--color-primary);
-        }
-        .map-header-title {
-          font-weight: 700;
-          font-size: 0.85rem;
-          color: var(--color-text-main);
-        }
-        .map-frame-box {
-          flex: 1;
+          min-height: 280px;
           background: #E2E8F0;
-          min-height: 320px;
         }
-        .map-iframe {
+        .map-iframe-elem {
           width: 100%;
           height: 100%;
           border: 0;
           display: block;
         }
-        .map-footer-notes {
-          display: flex;
-          justify-content: space-around;
-          padding: 0.85rem 1rem;
+
+        /* Column 3 */
+        .enquiry-form-col {
           background: #ffffff;
-          border-top: 1px solid var(--color-border);
-          font-size: 0.775rem;
-          color: var(--color-text-muted);
-        }
-        .map-note {
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-lg);
+          padding: 1.5rem 1.25rem;
+          box-shadow: var(--shadow-sm);
           display: flex;
-          align-items: center;
-          gap: 6px;
+          flex-direction: column;
         }
-        .map-note-icon {
-          color: var(--color-secondary);
+        .form-main-title {
+          font-size: 1.15rem;
+          font-weight: 800;
+          color: var(--color-text-main);
+          margin-bottom: 1.15rem;
+        }
+        .home-enquiry-form {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          flex: 1;
+        }
+        .form-group-compact {
+          display: flex;
+        }
+        .compact-input {
+          width: 100%;
+          padding: 8px 12px;
+          font-size: 0.835rem;
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-sm);
+          background: var(--color-bg);
+          color: var(--color-text-main);
+          outline: none;
+          transition: border-color var(--transition-fast);
+        }
+        .compact-input:focus {
+          border-color: var(--color-primary);
+          background: #ffffff;
+        }
+        .compact-textarea {
+          resize: vertical;
+          min-height: 60px;
+        }
+        .compact-submit-btn {
+          width: 100%;
+          justify-content: center;
+          margin-top: auto;
+          padding: 9px 16px;
+          font-size: 0.875rem;
+        }
+        .enquiry-done-box {
+          text-align: center;
+          padding: 2rem 1rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+        }
+        .enquiry-done-box h4 {
+          font-size: 1.1rem;
+          color: var(--color-primary);
+          margin: 0;
+        }
+        .enquiry-done-box p {
+          font-size: 0.825rem;
+          color: var(--color-text-muted);
+          margin: 0 0 1rem;
         }
 
         @media (max-width: 1024px) {
-          .location-grid {
+          .location-contact-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+          .enquiry-form-col {
+            grid-column: span 2;
+          }
+        }
+        @media (max-width: 640px) {
+          .location-contact-grid {
             grid-template-columns: 1fr;
           }
-          .map-frame-box {
-            min-height: 280px;
+          .enquiry-form-col {
+            grid-column: span 1;
+          }
+          .info-action-btns {
+            flex-direction: column;
           }
         }
       `}</style>

@@ -13,19 +13,40 @@ import {
 } from 'lucide-react';
 import api from '../../services/api';
 
-const getCategoryIcon = (category) => {
+export const getCategoryIcon = (category) => {
   switch (category) {
     case 'Hematology':
-      return <Droplet size={18} className="test-cat-icon icon-blue" />;
+      return <Droplet size={14} className="test-cat-icon icon-blue" />;
     case 'Biochemistry':
     case 'Diabetes Care':
-      return <Activity size={18} className="test-cat-icon icon-teal" />;
+      return <Activity size={14} className="test-cat-icon icon-teal" />;
     case 'Endocrinology':
-      return <Zap size={18} className="test-cat-icon icon-teal" />;
+      return <Zap size={14} className="test-cat-icon icon-teal" />;
     case 'Cardiology':
-      return <Heart size={18} className="test-cat-icon icon-blue" />;
+      return <Heart size={14} className="test-cat-icon icon-blue" />;
     default:
-      return <FileText size={18} className="test-cat-icon icon-blue" />;
+      return <FileText size={14} className="test-cat-icon icon-blue" />;
+  }
+};
+
+export const getTestCategoryImg = (category) => {
+  switch (category) {
+    case 'Hematology':
+      return '/images/service-hematology.jpg';
+    case 'Biochemistry':
+      return '/images/service-biochemistry.jpg';
+    case 'Diabetes Care':
+      return '/images/service-diabetes.jpg';
+    case 'Endocrinology':
+      return '/images/service-endocrinology.jpg';
+    case 'Cardiology':
+      return '/images/service-cardiology.jpg';
+    case 'Radiology':
+      return '/images/service-radiology.jpg';
+    case 'Clinical Pathology':
+      return '/images/service-urinalysis.jpg';
+    default:
+      return '/images/service-serology.jpg';
   }
 };
 
@@ -81,55 +102,68 @@ const PopularTestsSection = ({ onSelectTest }) => {
           <div className="popular-tests-grid">
             {tests.map((test) => (
               <div key={test._id} className="test-card">
-                <div className="test-card-top">
-                  <div className="test-cat-pill">
-                    {getCategoryIcon(test.category)}
-                    <span>{test.category}</span>
-                  </div>
-                  {test.code && <span className="test-code-badge">{test.code}</span>}
-                </div>
-
-                <h3 className="test-name">{test.name}</h3>
-                <p className="test-desc">{test.description}</p>
-
-                {/* Preparation & Fasting */}
-                <div className="test-prep-box">
-                  <Clock size={14} className="prep-icon" />
-                  <span>
-                    {test.fastingRequired
-                      ? `Fasting required (${test.fastingHours} hrs)`
-                      : 'No fasting required'}
-                  </span>
-                </div>
-
-                {/* Price and Actions */}
-                <div className="test-footer">
-                  <div className="test-pricing">
-                    <span className="test-price">₹{test.price}</span>
-                    {test.mrp && test.mrp > test.price && (
-                      <span className="test-mrp">₹{test.mrp}</span>
-                    )}
-                  </div>
-
-                  <div className="test-action-buttons">
-                    <button
-                      type="button"
-                      onClick={() => navigate(`/tests?q=${encodeURIComponent(test.name)}`)}
-                      className="test-details-link"
-                    >
-                      <span>Details</span>
-                      <ArrowRight size={13} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleBookClick(test)}
-                      className="btn btn-primary btn-sm test-book-btn"
-                    >
-                      <Calendar size={13} />
-                      <span>Book Test</span>
-                    </button>
+                
+                {/* Visual Category Image Banner */}
+                <div className="test-card-media">
+                  <img
+                    src={getTestCategoryImg(test.category)}
+                    alt={test.name}
+                    className="test-card-img"
+                    loading="lazy"
+                  />
+                  <div className="test-card-media-overlay">
+                    <div className="test-cat-pill">
+                      {getCategoryIcon(test.category)}
+                      <span>{test.category}</span>
+                    </div>
+                    {test.code && <span className="test-code-badge">{test.code}</span>}
                   </div>
                 </div>
+
+                <div className="test-card-body">
+                  <h3 className="test-name">{test.name}</h3>
+                  <p className="test-desc">{test.description}</p>
+
+                  {/* Preparation & Fasting */}
+                  <div className="test-prep-box">
+                    <Clock size={13} className="prep-icon" />
+                    <span>
+                      {test.fastingRequired
+                        ? `Fasting required (${test.fastingHours} hrs)`
+                        : 'No fasting required'}
+                    </span>
+                  </div>
+
+                  {/* Price and Actions */}
+                  <div className="test-footer">
+                    <div className="test-pricing">
+                      <span className="test-price">₹{test.price}</span>
+                      {test.mrp && test.mrp > test.price && (
+                        <span className="test-mrp">₹{test.mrp}</span>
+                      )}
+                    </div>
+
+                    <div className="test-action-buttons">
+                      <button
+                        type="button"
+                        onClick={() => navigate(`/tests?q=${encodeURIComponent(test.name)}`)}
+                        className="test-details-link"
+                      >
+                        <span>Details</span>
+                        <ArrowRight size={13} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleBookClick(test)}
+                        className="btn btn-primary btn-sm test-book-btn"
+                      >
+                        <Calendar size={13} />
+                        <span>Book Test</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             ))}
           </div>
@@ -150,13 +184,14 @@ const PopularTestsSection = ({ onSelectTest }) => {
         .popular-tests-section {
           background-color: var(--color-bg);
           border-bottom: 1px solid var(--color-border);
-          padding: 3rem 0;
+          padding: 3.5rem 0;
         }
         .section-header-split {
           display: flex;
           justify-content: space-between;
           align-items: flex-end;
           margin-bottom: 2rem;
+          gap: 1rem;
         }
         .section-tag-eyebrow {
           font-size: 0.8125rem;
@@ -168,10 +203,10 @@ const PopularTestsSection = ({ onSelectTest }) => {
           margin-bottom: 4px;
         }
         .section-main-heading {
-          font-size: 2rem;
+          font-size: clamp(1.6rem, 2.3vw, 2.1rem);
           font-weight: 800;
           color: var(--color-text-main);
-          line-height: 1.2;
+          line-height: 1.25;
           margin: 0;
         }
         .section-header-link {
@@ -184,6 +219,7 @@ const PopularTestsSection = ({ onSelectTest }) => {
           font-weight: 600;
           font-size: 0.9375rem;
           cursor: pointer;
+          white-space: nowrap;
           transition: gap var(--transition-fast), color var(--transition-fast);
         }
         .section-header-link:hover {
@@ -197,76 +233,112 @@ const PopularTestsSection = ({ onSelectTest }) => {
         }
         .test-card {
           background: #ffffff;
-          border-radius: var(--radius-md);
+          border-radius: var(--radius-lg);
           border: 1px solid var(--color-border);
           box-shadow: var(--shadow-sm);
-          padding: 1.5rem;
+          overflow: hidden;
           display: flex;
           flex-direction: column;
           transition: transform var(--transition-normal), box-shadow var(--transition-normal);
         }
         .test-card:hover {
-          transform: translateY(-2px);
+          transform: translateY(-3px);
           box-shadow: var(--shadow-md);
-          border-color: rgba(11, 66, 111, 0.2);
+          border-color: rgba(11, 66, 111, 0.25);
         }
-        .test-card-top {
+
+        /* Card Media Banner */
+        .test-card-media {
+          position: relative;
+          width: 100%;
+          height: 130px;
+          overflow: hidden;
+          background: #0B426F;
+        }
+        .test-card-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.4s ease;
+        }
+        .test-card:hover .test-card-img {
+          transform: scale(1.06);
+        }
+        .test-card-media-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(6, 42, 74, 0.9) 0%, rgba(6, 42, 74, 0.3) 60%, rgba(0,0,0,0.1) 100%);
           display: flex;
           justify-content: space-between;
-          align-items: center;
-          margin-bottom: 0.85rem;
+          align-items: flex-end;
+          padding: 10px 14px;
         }
+
         .test-cat-pill {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
-          font-size: 0.75rem;
+          gap: 5px;
+          font-size: 0.72rem;
           font-weight: 700;
-          color: var(--color-primary);
+          color: #5EEAD4;
           text-transform: uppercase;
           letter-spacing: 0.4px;
+          background: rgba(6, 42, 74, 0.75);
+          padding: 2px 8px;
+          border-radius: 4px;
+          backdrop-filter: blur(4px);
         }
         .test-cat-icon {
           flex-shrink: 0;
         }
         .icon-blue {
-          color: var(--color-primary);
+          color: #38BDF8;
         }
         .icon-teal {
-          color: var(--color-secondary);
+          color: #5EEAD4;
         }
         .test-code-badge {
           font-size: 0.7rem;
           font-weight: 600;
-          color: var(--color-text-muted);
-          background: var(--color-bg);
+          color: #FFFFFF;
+          background: rgba(255, 255, 255, 0.2);
           padding: 2px 6px;
           border-radius: var(--radius-sm);
-          border: 1px solid var(--color-border-subtle);
+          backdrop-filter: blur(4px);
+        }
+
+        /* Card Body */
+        .test-card-body {
+          padding: 1.25rem;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
         }
         .test-name {
-          font-size: 1.15rem;
+          font-size: 1.1rem;
+          font-weight: 700;
           color: var(--color-text-main);
-          margin-bottom: 0.4rem;
+          margin-bottom: 0.35rem;
           line-height: 1.3;
         }
         .test-desc {
-          font-size: 0.825rem;
+          font-size: 0.8125rem;
           color: var(--color-text-muted);
-          line-height: 1.5;
-          margin-bottom: 1rem;
+          line-height: 1.45;
+          margin-bottom: 0.85rem;
           flex: 1;
         }
         .test-prep-box {
           display: flex;
           align-items: center;
           gap: 6px;
-          font-size: 0.775rem;
+          font-size: 0.75rem;
           color: var(--color-text-body);
           background: var(--color-bg);
-          padding: 6px 10px;
+          padding: 5px 8px;
           border-radius: var(--radius-sm);
-          margin-bottom: 1.15rem;
+          margin-bottom: 1rem;
           border: 1px solid var(--color-border-subtle);
         }
         .prep-icon {
@@ -277,7 +349,7 @@ const PopularTestsSection = ({ onSelectTest }) => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding-top: 0.85rem;
+          padding-top: 0.75rem;
           border-top: 1px solid var(--color-border-subtle);
         }
         .test-pricing {
@@ -286,12 +358,12 @@ const PopularTestsSection = ({ onSelectTest }) => {
           gap: 6px;
         }
         .test-price {
-          font-size: 1.35rem;
-          font-weight: 700;
+          font-size: 1.3rem;
+          font-weight: 800;
           color: var(--color-primary);
         }
         .test-mrp {
-          font-size: 0.85rem;
+          font-size: 0.825rem;
           color: var(--color-text-light);
           text-decoration: line-through;
         }

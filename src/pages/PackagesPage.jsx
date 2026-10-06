@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import api from '../services/api';
 import AppointmentModal from '../components/booking/AppointmentModal';
+import { getPackageImage } from '../components/home/PopularPackagesSection';
 
 const PackagesPage = () => {
   const [packages, setPackages] = useState([]);
@@ -66,66 +67,80 @@ const PackagesPage = () => {
             </div>
           ) : (
             <div className="all-packages-grid">
-              {packages.map((pkg) => (
-                <div key={pkg._id} className="package-detailed-card">
-                  
-                  {/* Top Badges */}
-                  <div className="pkg-card-top-bar">
-                    <span className="pkg-target-tag">{pkg.targetAudience}</span>
-                    {pkg.discountPercentage > 0 && (
-                      <span className="badge badge-success">Save {pkg.discountPercentage}%</span>
-                    )}
-                  </div>
+              {packages.map((pkg) => {
+                const imgUrl = getPackageImage(pkg);
 
-                  <h3 className="pkg-card-title">{pkg.name}</h3>
-                  <p className="pkg-card-desc">{pkg.description}</p>
-
-                  {/* Pricing Box */}
-                  <div className="pkg-card-pricing">
-                    <div>
-                      <span className="pkg-now-price">₹{pkg.price}</span>
-                      {pkg.mrp && <span className="pkg-mrp-price">MRP ₹{pkg.mrp}</span>}
+                return (
+                  <div key={pkg._id} className="package-detailed-card">
+                    
+                    {/* Flush Top Image Banner */}
+                    <div className="pkg-detail-media">
+                      <img
+                        src={imgUrl}
+                        alt={pkg.name}
+                        className="pkg-detail-img"
+                        loading="lazy"
+                      />
+                      <div className="pkg-detail-media-overlay">
+                        <span className="pkg-target-tag">{pkg.targetAudience}</span>
+                        {pkg.discountPercentage > 0 && (
+                          <span className="badge badge-success">Save {pkg.discountPercentage}%</span>
+                        )}
+                      </div>
                     </div>
-                    <div className="pkg-tests-pill">
-                      {pkg.totalTestsCount || pkg.includedTests.length} Investigations Included
-                    </div>
-                  </div>
 
-                  {/* Included Tests List */}
-                  <div className="pkg-included-block">
-                    <h4 className="tests-block-title">Included Diagnostic Tests &amp; Panels:</h4>
-                    <div className="tests-chips-list">
-                      {pkg.includedTests.map((testName, i) => (
-                        <div key={i} className="test-chip-item">
-                          <Check size={14} color="var(--color-secondary)" />
-                          <span>{testName}</span>
+                    <div className="pkg-detail-body">
+                      <h2 className="pkg-card-title">{pkg.name}</h2>
+                      <p className="pkg-card-desc">{pkg.description}</p>
+
+                      {/* Pricing Box */}
+                      <div className="pkg-card-pricing">
+                        <div>
+                          <span className="pkg-now-price">₹{pkg.price}</span>
+                          {pkg.mrp && <span className="pkg-mrp-price">MRP ₹{pkg.mrp}</span>}
                         </div>
-                      ))}
+                        <div className="pkg-tests-pill">
+                          {pkg.totalTestsCount || pkg.includedTests.length} Investigations Included
+                        </div>
+                      </div>
+
+                      {/* Included Tests List */}
+                      <div className="pkg-included-block">
+                        <h4 className="tests-block-title">Included Diagnostic Tests &amp; Panels:</h4>
+                        <div className="tests-chips-list">
+                          {pkg.includedTests.map((testName, i) => (
+                            <div key={i} className="test-chip-item">
+                              <Check size={14} color="var(--color-secondary)" />
+                              <span>{testName}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Preparation Guidelines */}
+                      <div className="pkg-prep-guidance">
+                        <Clock size={16} color="var(--color-secondary)" style={{ flexShrink: 0 }} />
+                        <div>
+                          <strong>Preparation Instructions:</strong> {pkg.preparation}
+                        </div>
+                      </div>
+
+                      {/* Action CTA */}
+                      <div className="pkg-card-cta">
+                        <button
+                          onClick={() => handleBook(pkg)}
+                          className="btn btn-primary btn-lg"
+                          style={{ width: '100%' }}
+                        >
+                          <Calendar size={18} />
+                          <span>Book Health Package</span>
+                        </button>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Preparation Guidelines */}
-                  <div className="pkg-prep-guidance">
-                    <Clock size={16} color="var(--color-secondary)" style={{ flexShrink: 0 }} />
-                    <div>
-                      <strong>Preparation Instructions:</strong> {pkg.preparation}
-                    </div>
                   </div>
-
-                  {/* Action CTA */}
-                  <div className="pkg-card-cta">
-                    <button
-                      onClick={() => handleBook(pkg)}
-                      className="btn btn-primary btn-lg"
-                      style={{ width: '100%' }}
-                    >
-                      <Calendar size={18} />
-                      <span>Book Health Package</span>
-                    </button>
-                  </div>
-
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
@@ -150,7 +165,7 @@ const PackagesPage = () => {
           border-radius: var(--radius-xl);
           border: 1px solid var(--color-border);
           box-shadow: var(--shadow-card);
-          padding: 2.25rem;
+          overflow: hidden;
           display: flex;
           flex-direction: column;
           transition: all var(--transition-normal);
@@ -160,19 +175,52 @@ const PackagesPage = () => {
           box-shadow: var(--shadow-card-hover);
           border-color: rgba(11, 71, 120, 0.25);
         }
-        .pkg-card-top-bar {
+
+        /* Top Image Media */
+        .pkg-detail-media {
+          position: relative;
+          width: 100%;
+          height: 200px;
+          overflow: hidden;
+          background: #0B426F;
+        }
+        .pkg-detail-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.4s ease;
+        }
+        .package-detailed-card:hover .pkg-detail-img {
+          transform: scale(1.04);
+        }
+        .pkg-detail-media-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(6, 42, 74, 0.85) 0%, rgba(6, 42, 74, 0.2) 60%, rgba(0, 0, 0, 0.1) 100%);
           display: flex;
           justify-content: space-between;
-          align-items: center;
-          margin-bottom: 0.75rem;
+          align-items: flex-end;
+          padding: 14px 18px;
         }
         .pkg-target-tag {
           font-size: 0.775rem;
           font-weight: 700;
-          color: var(--color-secondary);
+          color: #5EEAD4;
           text-transform: uppercase;
           letter-spacing: 0.6px;
+          background: rgba(6, 42, 74, 0.7);
+          padding: 3px 8px;
+          border-radius: 4px;
         }
+
+        .pkg-detail-body {
+          padding: 1.75rem 2rem 2rem;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+
         .pkg-card-title {
           font-size: 1.5rem;
           color: var(--color-primary-dark);
@@ -257,6 +305,9 @@ const PackagesPage = () => {
         @media (max-width: 1024px) {
           .all-packages-grid {
             grid-template-columns: 1fr;
+          }
+          .pkg-detail-body {
+            padding: 1.5rem 1.25rem 1.75rem;
           }
         }
       `}</style>
