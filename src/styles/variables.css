@@ -1,0 +1,78 @@
+:root {
+  /* Brand Color Palette - Doctor Diagnostics Center */
+  --color-primary: #0B426F;
+  --color-primary-hover: #08355A;
+  --color-primary-dark: #062A4A;
+  --color-primary-light: #E7F0F7;
+  --color-primary-rgb: 11, 66, 111;
+
+  --color-secondary: #07877C;
+  --color-secondary-hover: #056960;
+  --color-secondary-light: #E6F5F3;
+  --color-secondary-rgb: 7, 135, 124;
+
+  --color-accent: #0284C7;
+  --color-accent-light: #E0F2FE;
+
+  /* Neutrals & Surfaces */
+  --color-bg: #F2F7FB;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F8FAFC;
+  --color-surface-card: #FFFFFF;
+
+  --color-text-main: #102D46;
+  --color-text-body: #334155;
+  --color-text-muted: #64748B;
+  --color-text-light: #94A3B8;
+
+  --color-border: #DCE6EF;
+  --color-border-subtle: #EAF1F7;
+  --color-divider: #CBD5E1;
+
+  /* Feedback Colors */
+  --color-success: #16A765;
+  --color-success-bg: #EDFBF4;
+  --color-warning: #F59E0B;
+  --color-warning-bg: #FFFBEB;
+  --color-danger: #EF4444;
+  --color-danger-bg: #FEF2F2;
+  --color-info: #0B426F;
+  --color-info-bg: #F0F6FA;
+
+  /* Typography - Consistent IBM Plex Sans */
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* 8px Spacing System Tokens */
+  --space-05: 4px;
+  --space-1: 8px;
+  --space-15: 12px;
+  --space-2: 16px;
+  --space-25: 20px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+
+  /* Shadows - Subtle Only */
+  --shadow-sm: 0 1px 2px 0 rgba(16, 45, 70, 0.04);
+  --shadow-md: 0 4px 8px -1px rgba(11, 66, 111, 0.06), 0 2px 4px -2px rgba(11, 66, 111, 0.04);
+  --shadow-lg: 0 10px 18px -3px rgba(11, 66, 111, 0.08), 0 4px 6px -4px rgba(11, 66, 111, 0.04);
+  --shadow-xl: 0 16px 24px -4px rgba(11, 66, 111, 0.09), 0 6px 10px -6px rgba(11, 66, 111, 0.04);
+  --shadow-card: 0 2px 6px rgba(11, 66, 111, 0.05);
+  --shadow-card-hover: 0 8px 18px -2px rgba(11, 66, 111, 0.1);
+
+  /* Radius (10px to 16px) */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Spacing & Layout */
+  --container-max: 1440px;
+  --header-height: 74px;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease-in-out;
+}
