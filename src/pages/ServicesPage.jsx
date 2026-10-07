@@ -531,6 +531,14 @@ const ServicesPage = () => {
             justify-content: center;
           }
         }
+        @media (max-width: 640px) {
+          .service-detail-card {
+            padding: 1.25rem 1rem;
+          }
+          .service-media-card {
+            min-height: 200px;
+          }
+        }
       `}</style>
     </div>
   );

@@ -281,13 +281,21 @@ const Footer = () => {
           }
         }
         @media (max-width: 640px) {
+          .footer-main {
+            padding: 2.25rem 1rem 1.75rem;
+          }
           .footer-grid {
             grid-template-columns: 1fr;
+            gap: 1.75rem;
           }
           .footer-bottom-inner {
             flex-direction: column;
             gap: 8px;
             text-align: center;
+          }
+          .footer-bottom-links {
+            flex-wrap: wrap;
+            justify-content: center;
           }
         }
       `}</style>

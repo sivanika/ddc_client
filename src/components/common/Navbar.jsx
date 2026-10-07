@@ -373,22 +373,89 @@ const Navbar = ({ onOpenBooking }) => {
             display: none;
           }
           .brand-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
           }
           .logo-img {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
           }
           .nav-book-btn span {
             display: none;
           }
-        }
-        @media (max-width: 480px) {
-          .top-hours span {
-            font-size: 0.75rem;
+          .nav-book-btn {
+            padding: 0.45rem 0.75rem;
           }
-          .top-phone span {
-            font-size: 0.75rem;
+        }
+        @media (max-width: 640px) {
+          .top-bar-inner {
+            flex-direction: column;
+            gap: 2px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+          }
+          .top-bar-left, .top-bar-right {
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 100%;
+          }
+          .top-item {
+            font-size: 0.72rem;
+            justify-content: center;
+          }
+          .main-nav {
+            min-height: 58px;
+          }
+          .nav-container {
+            gap: 0.4rem;
+          }
+          .brand-logo {
+            gap: 8px;
+            min-width: 0;
+            flex-shrink: 1;
+          }
+          .logo-img {
+            width: 32px;
+            height: 32px;
+          }
+          .brand-text {
+            min-width: 0;
+            overflow: hidden;
+          }
+          .brand-title {
+            font-size: clamp(0.825rem, 3.6vw, 0.95rem);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .brand-sub {
+            font-size: 0.635rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .nav-actions {
+            gap: 4px;
+            flex-shrink: 0;
+          }
+          .nav-book-btn {
+            padding: 0.4rem 0.6rem;
+          }
+          .mobile-toggle-btn {
+            padding: 4px;
+          }
+        }
+        @media (max-width: 380px) {
+          .brand-title {
+            font-size: 0.8rem;
+          }
+          .brand-sub {
+            font-size: 0.58rem;
+            letter-spacing: 0.2px;
+          }
+          .top-item {
+            font-size: 0.68rem;
           }
         }
       `}</style>

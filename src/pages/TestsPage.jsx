@@ -634,6 +634,29 @@ const TestsPage = () => {
           .page-header-title {
             font-size: 1.85rem;
           }
+          .catalog-controls {
+            flex-direction: column;
+            gap: 0.85rem;
+          }
+          .catalog-search-wrap {
+            min-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+          }
+          .catalog-sort-wrap {
+            width: 100%;
+            justify-content: space-between;
+            box-sizing: border-box;
+          }
+        }
+        @media (max-width: 400px) {
+          .test-card {
+            padding: 1.15rem 1rem;
+          }
+          .test-price-row {
+            flex-wrap: wrap;
+            gap: 6px;
+          }
         }
       `}</style>
     </div>

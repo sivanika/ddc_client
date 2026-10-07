@@ -1077,42 +1077,152 @@ const HeroSection = ({ onOpenBooking }) => {
         }
         @media (max-width: 640px) {
           .hero-carousel-section {
-            padding: 2.25rem 0 1.5rem;
+            padding: 1.75rem 0 1.25rem;
             min-height: auto;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+          }
+          .hero-content-container {
+            width: 100%;
+            min-width: 0;
+            gap: 1.5rem;
+          }
+          .hero-grid {
+            width: 100%;
+            min-width: 0;
+            gap: 1.5rem;
+          }
+          .hero-text-overlay {
+            width: 100%;
+            min-width: 0;
+          }
+          .hero-badge-pill {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            max-width: 100%;
           }
           .hero-main-title {
-            font-size: 2rem;
+            font-size: clamp(1.4rem, 5.5vw, 1.85rem);
+            line-height: 1.22;
+            word-break: break-word;
+            margin-bottom: 0.85rem;
+          }
+          .hero-main-desc {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+          }
+          .hero-search-box {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
           }
           .search-bar-inner {
             flex-direction: column;
             align-items: stretch;
             padding: 8px;
             gap: 8px;
+            width: 100%;
+            box-sizing: border-box;
           }
           .search-bar-icon {
             display: none;
           }
+          .search-bar-input {
+            width: 100%;
+            min-width: 0;
+            font-size: 0.875rem;
+          }
           .search-action-btn {
             justify-content: center;
+            width: 100%;
+          }
+          .hero-popular-searches {
+            width: 100%;
+            margin-bottom: 1.25rem;
+            gap: 6px;
+          }
+          .popular-chips-list {
+            width: 100%;
+            gap: 6px;
+          }
+          .popular-chip-pill {
+            font-size: 0.75rem;
+            padding: 4px 10px;
           }
           .hero-action-buttons {
             flex-direction: column;
+            width: 100%;
+            gap: 0.65rem;
           }
           .hero-primary-cta, .hero-secondary-cta {
+            width: 100%;
+            justify-content: center;
+            padding: 11px 16px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+          }
+          .hero-card-overlay {
+            width: 100%;
+          }
+          .glass-package-card {
+            width: 100%;
+            max-width: 100%;
+            padding: 1.15rem 0.875rem;
+            gap: 0.85rem;
+            box-sizing: border-box;
+          }
+          .glass-card-title {
+            font-size: 1.05rem;
+            word-break: break-word;
+          }
+          .glass-pricing-row {
+            flex-wrap: wrap;
+            gap: 0.75rem;
+          }
+          .glass-price-main {
+            font-size: 1.35rem;
+          }
+          .glass-book-btn {
             width: 100%;
             justify-content: center;
           }
           .hero-bottom-controls-strip {
             flex-direction: column;
             align-items: flex-start;
+            gap: 1rem;
+            padding-top: 1rem;
+            width: 100%;
+          }
+          .slider-nav-group {
+            width: 100%;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
           }
           .hero-trust-badges {
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
+            gap: 8px;
+            width: 100%;
           }
           .trust-divider {
             display: none;
+          }
+        }
+        @media (max-width: 380px) {
+          .hero-main-title {
+            font-size: 1.35rem;
+          }
+          .popular-label {
+            font-size: 0.75rem;
+          }
+          .popular-chip-pill {
+            font-size: 0.7rem;
+            padding: 3px 8px;
           }
         }
       `}</style>

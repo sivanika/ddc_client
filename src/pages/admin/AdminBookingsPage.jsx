@@ -411,6 +411,25 @@ const AdminBookingsPage = () => {
         .admin-full-table tr:hover {
           background: #F8FAFC;
         }
+        @media (max-width: 640px) {
+          .admin-filter-bar {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .admin-search-form {
+            min-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+          }
+          .admin-filter-selects {
+            width: 100%;
+            flex-wrap: wrap;
+          }
+          .admin-filter-selects .form-control {
+            flex: 1;
+            min-width: 120px;
+          }
+        }
       `}</style>
     </div>
   );

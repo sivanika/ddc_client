@@ -507,6 +507,22 @@ const ContactPage = () => {
             grid-template-columns: 1fr;
           }
         }
+        @media (max-width: 640px) {
+          .contact-info-card, .contact-form-card {
+            padding: 1.5rem 1rem;
+          }
+          .contact-info-card > *:not(.contact-card-banner) {
+            margin-left: 1rem;
+            margin-right: 1rem;
+          }
+          .faq-question-btn {
+            padding: 1rem;
+            font-size: 0.95rem;
+          }
+          .faq-answer-box {
+            padding: 0 1rem 1rem;
+          }
+        }
       `}</style>
     </div>
   );

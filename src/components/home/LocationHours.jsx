@@ -388,9 +388,17 @@ const LocationHours = ({ onOpenBooking }) => {
           }
           .enquiry-form-col {
             grid-column: span 1;
+            padding: 1.25rem 1rem;
+          }
+          .location-info-col {
+            padding: 1.25rem 1rem;
           }
           .info-action-btns {
             flex-direction: column;
+          }
+          .info-action-btns .btn {
+            width: 100%;
+            justify-content: center;
           }
         }
       `}</style>

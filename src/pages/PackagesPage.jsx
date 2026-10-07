@@ -310,6 +310,23 @@ const PackagesPage = () => {
             padding: 1.5rem 1.25rem 1.75rem;
           }
         }
+        @media (max-width: 640px) {
+          .pkg-detail-body {
+            padding: 1.25rem 1rem;
+          }
+          .pkg-card-pricing {
+            padding: 1rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+          }
+          .pkg-now-price {
+            font-size: 1.65rem;
+          }
+          .pkg-card-cta .btn {
+            width: 100%;
+          }
+        }
       `}</style>
     </div>
   );

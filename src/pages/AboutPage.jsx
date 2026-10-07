@@ -357,6 +357,12 @@ const AboutPage = () => {
           .about-features-grid {
             grid-template-columns: 1fr;
           }
+          .about-stats-card {
+            padding: 1.25rem 1rem;
+          }
+          .qc-card {
+            padding: 1.25rem 1rem;
+          }
         }
       `}</style>
     </div>

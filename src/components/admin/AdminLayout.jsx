@@ -293,6 +293,18 @@ const AdminLayout = () => {
             padding: 1.25rem;
           }
         }
+        @media (max-width: 640px) {
+          .admin-sidebar {
+            width: 54px;
+          }
+          .admin-header {
+            padding: 0 0.75rem;
+            height: 56px;
+          }
+          .admin-content-area {
+            padding: 0.85rem;
+          }
+        }
       `}</style>
     </div>
   );

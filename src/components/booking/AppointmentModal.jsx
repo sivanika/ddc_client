@@ -384,7 +384,7 @@ const AppointmentModal = ({ isOpen, onClose, preselectedItem = null }) => {
               marginBottom: '1.25rem',
               textAlign: 'left'
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', borderBottom: '1px solid #E2E8F0', paddingBottom: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', borderBottom: '1px solid #E2E8F0', paddingBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
                 <div>
                   <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     Booking Reference
@@ -395,7 +395,7 @@ const AppointmentModal = ({ isOpen, onClose, preselectedItem = null }) => {
                 </div>
 
                 {/* Payment Badge */}
-                <div style={{ textAlign: 'right' }}>
+                <div>
                   {confirmedBooking.paymentStatus === 'paid' ? (
                     <span style={{
                       display: 'inline-flex',
@@ -433,7 +433,7 @@ const AppointmentModal = ({ isOpen, onClose, preselectedItem = null }) => {
               </div>
 
               {/* Details Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', fontSize: '0.875rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '8px', fontSize: '0.875rem' }}>
                 <div><strong>Patient:</strong> {confirmedBooking.patientName}</div>
                 <div><strong>Mobile:</strong> {confirmedBooking.mobileNumber}</div>
                 <div><strong>Service:</strong> {confirmedBooking.itemName}</div>
@@ -788,7 +788,7 @@ const AppointmentModal = ({ isOpen, onClose, preselectedItem = null }) => {
                 </div>
 
                 {/* Payment Option Pills */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '8px', marginBottom: '1rem' }}>
                   
                   {/* Option 1: Pay at Lab */}
                   <button
